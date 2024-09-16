@@ -25,32 +25,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
     private final TicketService ticketService;
     
-    @GetMapping("/users")
+    @GetMapping("")
     public ResponseEntity<ResponseDto<List<User>>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(new ResponseDto<>(Constants.SUCCESS, users));
     }
 
-    @GetMapping("/user/{userid}/tickets")
+    @GetMapping("/{userid}/ticket")
     public ResponseEntity<ResponseDto<List<Ticket>>> getUserTickets(@PathVariable("userid") Integer userId) {
         List<Ticket> tickets = ticketService.getUserTickets(userId);
         return ResponseEntity.ok(new ResponseDto<>(Constants.SUCCESS, tickets));
     }
 
-    @PostMapping("/user")
+    @PostMapping("")
     public ResponseEntity<ResponseDto<User>> createUser(@RequestBody UserDto userData) {
         User user = userService.createUser(userData);
         return user==null ? ResponseEntity.ok(new ResponseDto<>(Constants.ERROR, null)) :
             ResponseEntity.ok(new ResponseDto<>(Constants.SUCCESS, user));
     }
     
-    @PutMapping("/user/{userid}")
+    @PutMapping("/{userid}")
     public ResponseEntity<ResponseDto<User>> updateUser(@PathVariable("userid") Integer userId, @RequestBody UserDto userData) {
         User user = userService.updateUser(userId, userData);
         return user==null ? ResponseEntity.ok(new ResponseDto<>(Constants.ERROR, null)) :

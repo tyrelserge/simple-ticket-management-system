@@ -1,7 +1,5 @@
 package io.ennov.simple_ticket_management_system.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +18,6 @@ public class User {
     private Integer userId;
     private String username;
     private String email;
-    @JsonIgnore
-    private String password;
+    // @JsonIgnore
+    // private String password;
 }

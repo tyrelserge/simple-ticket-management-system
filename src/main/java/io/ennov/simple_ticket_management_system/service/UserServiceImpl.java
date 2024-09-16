@@ -3,10 +3,10 @@ package io.ennov.simple_ticket_management_system.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import io.ennov.simple_ticket_management_system.entities.User;
+import io.ennov.simple_ticket_management_system.exception.ResourceNotFoundException;
 import io.ennov.simple_ticket_management_system.model.UserDto;
 import io.ennov.simple_ticket_management_system.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    // private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getAllUsers() {
@@ -29,12 +29,12 @@ public class UserServiceImpl implements UserService {
         Optional<User> optional = userRepository.findByEmail(userData.getEmail());
 
         if (optional.isPresent())
-            throw new RuntimeException("User already exists");
+            throw new ResourceNotFoundException("User already exists");
 
         User user = new User();
         user.setUsername(userData.getUsername());
         user.setEmail(userData.getEmail());
-        user.setPassword(passwordEncoder.encode(userData.getPassword()));
+        // user.setPassword(passwordEncoder.encode(userData.getPassword()));
         
         return userRepository.save(user);
     }
@@ -44,12 +44,12 @@ public class UserServiceImpl implements UserService {
         Optional<User> optional = userRepository.findById(userId);
 
         if (!optional.isPresent())
-            throw new RuntimeException("User not found");
+            throw new ResourceNotFoundException("User not found");
 
         User user = optional.get();
         user.setUsername(userData.getUsername());
         user.setEmail(userData.getEmail());
-        user.setPassword(passwordEncoder.encode(userData.getPassword()));
+        // user.setPassword(passwordEncoder.encode(userData.getPassword()));
 
         return userRepository.save(user);
 
