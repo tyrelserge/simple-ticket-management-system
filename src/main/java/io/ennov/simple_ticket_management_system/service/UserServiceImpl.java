@@ -3,6 +3,7 @@ package io.ennov.simple_ticket_management_system.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import io.ennov.simple_ticket_management_system.entities.User;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getAllUsers() {
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setUsername(userData.getUsername());
         user.setEmail(userData.getEmail());
-        user.setPassword(userData.getPassword());
+        user.setPassword(passwordEncoder.encode(userData.getPassword()));
         
         return userRepository.save(user);
     }
@@ -47,7 +49,7 @@ public class UserServiceImpl implements UserService {
         User user = optional.get();
         user.setUsername(userData.getUsername());
         user.setEmail(userData.getEmail());
-        user.setPassword(userData.getPassword());
+        user.setPassword(passwordEncoder.encode(userData.getPassword()));
 
         return userRepository.save(user);
 
