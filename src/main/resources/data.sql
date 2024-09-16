@@ -1,21 +1,27 @@
-DROP TABLE IF EXISTS user;
- 
-CREATE TABLE user (
-  user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(250) NOT NULL,
-  email VARCHAR(250) NOT NULL,
-  password VARCHAR(250) NOT NULL
+
+drop table if exists users;
+drop table if exists tickets;
+
+create table users
+(
+   user_id              int not null auto_increment,
+   username             varchar(255) not null,
+   email                varchar(255) not null,
+   password             varchar(255) not null,
+   primary key (user_id)
 );
 
-DROP TABLE IF EXISTS ticket;
- 
-CREATE TABLE ticket (
-  ticket_id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
-  title VARCHAR(250) NOT NULL,
-  description TEXT,
-  status VARCHAR(20) NOT NULL,
-  user_id INT NOT NULL,
+
+create table tickets
+(
+   ticket_id            int not null auto_increment,
+   user_id              int not null,
+   title                varchar(255) not null,
+   description          varchar(255) comment '',
+   status               varchar(20) not null,
+   primary key (ticket_id)
 );
 
-ALTER TABLE ticket ADD CONSTRAINT FK_TICKET_USER FOREIGN KEY (user_id)
-      REFERENCES user (user_id) ON DELETE restrict ON UPDATE restrict;
+
+alter table tickets add constraint FK_ADD_TICKET_USER foreign key (user_id)
+      references users (user_id) on delete restrict on update restrict;
