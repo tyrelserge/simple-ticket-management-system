@@ -1,0 +1,21 @@
+DROP TABLE IF EXISTS user;
+ 
+CREATE TABLE user (
+  user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(250) NOT NULL,
+  email VARCHAR(250) NOT NULL,
+  password VARCHAR(250) NOT NULL
+);
+
+DROP TABLE IF EXISTS ticket;
+ 
+CREATE TABLE ticket (
+  ticket_id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
+  title VARCHAR(250) NOT NULL,
+  description TEXT,
+  status VARCHAR(20) NOT NULL,
+  user_id INT NOT NULL,
+);
+
+ALTER TABLE ticket ADD CONSTRAINT FK_TICKET_USER FOREIGN KEY (user_id)
+      REFERENCES user (user_id) ON DELETE restrict ON UPDATE restrict;
