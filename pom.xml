@@ -11,7 +11,7 @@
 	<groupId>io.ennov</groupId>
 	<artifactId>simple-ticket-management-system</artifactId>
 	<version>1.0.0</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>simple-ticket-management-system</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
